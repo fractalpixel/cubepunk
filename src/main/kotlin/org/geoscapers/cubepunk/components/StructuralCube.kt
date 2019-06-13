@@ -9,15 +9,21 @@ import processing.core.PVector
 
 val locationRef = ComponentRef(Location::class)
 
-class StructuralCubeRenderer(var radius: Float = 10f): ComponentBase(), Renderer {
+class StructuralCubeRenderer(var radius: Float = 10f,
+                             var seed: Long = System.nanoTime()): ComponentBase(), Renderer {
 
     override fun draw(context: DemoContext) {
         context.run {
-            // TODO: Move position drawing out to a renderable base class?
+            random.setSeed(seed)
+
+            // TODO: Move positioning out to a renderer base class?
+            // TODO: Technically color should probably be a parameter, instead of being randomized...
             pushMatrix()
             val pos: PVector = entity?.get(locationRef)?.position ?: ZeroVector
             translate(pos.x, pos.y, pos.z)
-            fill(color(210f, 50f, 50f))
+            fill(color(random.nextGaussianFloat(210f, 20f),
+                       random.nextGaussianFloat(70f, 20f),
+                       random.nextGaussianFloat(50f, 10f)))
             box(radius)
             popMatrix()
         }

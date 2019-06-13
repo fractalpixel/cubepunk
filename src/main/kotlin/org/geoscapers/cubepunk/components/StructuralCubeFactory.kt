@@ -18,6 +18,8 @@ class StructuralCubeFactory: EntityFactoryBase() {
         entity.set(Location(PVector(x, y, z)))
 
         // Appearance
-        entity.set(StructuralCubeRenderer(random.nextFloat(1f, 10f)))
+        val radius = random.nextFloat(0.1f, 8f)
+        val renderingSeed = random.nextLong()
+        entity.set(StructuralCubeRenderer(radius, renderingSeed))
     }
 }

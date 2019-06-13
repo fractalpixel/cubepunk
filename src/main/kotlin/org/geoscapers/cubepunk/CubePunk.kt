@@ -52,7 +52,8 @@ class CubePunk: DemoContext(false) {
 
         // Create some stuff
         for (i in 1..1000) {
-            world.createEntity(Symbol["StructuralCube"])
+            val seed = i.toLong()
+            world.createEntity(Symbol["StructuralCube"], seed)
         }
     }
 
