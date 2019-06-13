@@ -1,4 +1,4 @@
-package org.geoscapers.cubepunk
+package org.geoscapers.utils
 
 import org.mistutils.random.RandomSequence
 import processing.core.PApplet

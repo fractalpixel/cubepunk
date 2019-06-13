@@ -1,5 +1,10 @@
 package org.geoscapers.cubepunk
 
+import org.geoscapers.basecode.CubePunkContext
+import org.geoscapers.utils.ZeroVector
+import org.geoscapers.utils.x
+import org.geoscapers.utils.y
+import org.geoscapers.utils.z
 import org.ode4j.ode.DBody
 import org.ode4j.ode.DSphere
 import org.ode4j.ode.internal.DxMass

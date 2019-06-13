@@ -8,7 +8,7 @@ import org.junit.Test
 class PhysicsTest {
 
 
-    @Test
-    fun test
+    //@Test
+    //fun test
 
 }

@@ -1,4 +1,4 @@
-package org.geoscapers.cubepunk
+package org.geoscapers.utils
 
 import org.ode4j.math.DVector3
 import org.ode4j.math.DVector3C
