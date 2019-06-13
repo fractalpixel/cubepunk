@@ -13,9 +13,9 @@ import processing.core.PVector
 
 
 /**
- *
+ * Base class for demos, inherits PApplet and provides some default setup.
  */
-abstract class CubePunkContext @JvmOverloads constructor(
+abstract class DemoContext @JvmOverloads constructor(
     val releaseBuild: Boolean = false,
     val randomSeed: Long = 42,
     val targetFrameRate: Float = 60f,

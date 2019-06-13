@@ -1,10 +1,11 @@
 package org.geoscapers.cubepunk
 
-import org.geoscapers.basecode.CubePunkContext
-import org.geoscapers.utils.randomizeGaussian
-import org.ode4j.ode.internal.OdeFactoryImpl
+import org.entityflakes.DefaultWorld
+import org.geoscapers.basecode.DemoContext
+import org.geoscapers.cubepunk.components.Renderer
+import org.geoscapers.cubepunk.components.StructuralCubeFactory
+import org.mistutils.symbol.Symbol
 import processing.core.PApplet
-import processing.core.PVector
 
 fun main() {
     // Start with processing
@@ -14,11 +15,14 @@ fun main() {
 /**
  *
  */
-class CubePunk: CubePunkContext(false) {
+class CubePunk: DemoContext(false) {
 
     val balls = ArrayList<PhysicalBall>()
 
+    val world = DefaultWorld()
+
     override fun init() {
+        /*
         val ballCenter = PVector(10f, 20f, 10f)
         val pos = PVector()
         for (i in 1..100) {
@@ -35,18 +39,36 @@ class CubePunk: CubePunkContext(false) {
 
         // Create physics ground - but assign no body for it, so it is only used in collision -> unmovable
         OdeFactoryImpl.createPlane(physicsSpace, 0.0, 1.0, 0.0, 0.0)
+        */
+
+        // Setup world
+        world.init()
+        world.registerEntityFactory(Symbol["StructuralCube"], StructuralCubeFactory())
+        val drawingRef = world.getComponentRef(Renderer::class)
+        world.addEntityProcessor(listOf(drawingRef), { entity, time ->
+            // Draw each drawable object every frame
+            entity[drawingRef]?.draw(this)
+        })
+
+        // Create some stuff
+        for (i in 1..1000) {
+            world.createEntity(Symbol["StructuralCube"])
+        }
     }
 
     override fun update() {
-        // Red
-        fill(0f, 50f, 60f)
+        // Update world
+        world.step()
 
-        // Cube!
+        // Red cube!
+        fill(0f, 50f, 60f)
         box(10f)
 
+        /*
         // Balls
         for (ball in balls) {
             ball.draw()
         }
+        */
     }
 }

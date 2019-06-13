@@ -1,6 +1,6 @@
 package org.geoscapers.cubepunk
 
-import org.geoscapers.basecode.CubePunkContext
+import org.geoscapers.basecode.DemoContext
 import org.geoscapers.utils.ZeroVector
 import org.geoscapers.utils.x
 import org.geoscapers.utils.y
@@ -15,7 +15,7 @@ import processing.core.PVector
 /**
  * Ball object, backed by physics.
  */
-class PhysicalBall(val context: CubePunkContext,
+class PhysicalBall(val context: DemoContext,
                    initialPosition: PVector = ZeroVector,
                    initialRadius: Double = 0.5,
                    initialDensity: Double = DEFAULT_DENSITY,
