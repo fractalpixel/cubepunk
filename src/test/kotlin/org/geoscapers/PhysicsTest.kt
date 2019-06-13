@@ -1,7 +1,5 @@
 package org.geoscapers
 
-import org.junit.Test
-
 /**
  *
  */
