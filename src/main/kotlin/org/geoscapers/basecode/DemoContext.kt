@@ -1,5 +1,7 @@
 package org.geoscapers.basecode
 
+import org.entityflakes.DefaultWorld
+import org.entityflakes.World
 import org.geoscapers.utils.camera
 import org.mistutils.random.RandomSequence
 import org.ode4j.ode.*
@@ -20,6 +22,8 @@ abstract class DemoContext @JvmOverloads constructor(
     val randomSeed: Long = 42,
     val targetFrameRate: Float = 60f,
     val initialGravity: PVector = PVector(0f, -9.81f, 0f)): PApplet() {
+
+    val world: World = DefaultWorld()
 
     /**
      * Random number source with better randomness and utility methods than java random.
@@ -86,6 +90,9 @@ abstract class DemoContext @JvmOverloads constructor(
             initialGravity.y.toDouble(),
             initialGravity.z.toDouble())
 
+        // Setup entity component system
+        world.init()
+
         // More iterations gives stabler physics but lower performance
         physicsWorld.quickStepNumIterations = 100
     }
@@ -145,7 +152,7 @@ abstract class DemoContext @JvmOverloads constructor(
 
         // Scale to resolution independent units.
         // Convention: One unit == 1 meter
-        scale(width / 1000f)
+        //scale(height / 1000f) // This is only for 2D graphics?
 
         // Don't draw lines
         noStroke()

@@ -6,10 +6,12 @@ import org.entityflakes.entitymanager.ComponentRef
 import org.geoscapers.basecode.DemoContext
 import org.geoscapers.cubepunk.TextureSet
 import org.geoscapers.utils.ZeroVector
+import org.mistutils.math.Tau
 import processing.core.PVector
 import processing.core.PConstants.QUADS
 import processing.core.PImage
-
+import java.lang.Math.abs
+import java.lang.Math.pow
 
 
 val locationRef = ComponentRef(Location::class)
@@ -26,7 +28,11 @@ class StructuralCubeRenderer(var radius: Float = 10f,
             // TODO: Technically color should probably be a parameter, instead of being randomized...
             pushMatrix()
             val pos: PVector = entity?.get(locationRef)?.position ?: ZeroVector
-            translate(pos.x, pos.y, pos.z)
+
+            val wavepos = random.nextGaussianFloat(0f, 1f)
+            val wavespeed = 1f //random.nextGaussianFloat(1f, 0.001f)
+
+            translate(pos.x, pos.y + pow(Math.sin((wavepos * context.world.time.secondsSinceStart) * Tau * 0.03 * wavespeed), 3.0).toFloat() * 100f, pos.z)
             val color = color(
                 random.nextGaussianFloat(10f, 20f),
                 random.nextGaussianFloat(10f, 20f),
@@ -54,7 +60,8 @@ class StructuralCubeRenderer(var radius: Float = 10f,
             beginShape(QUADS)
 
             // Apply texture if specified
-            textureSet?.applyTexture(random.nextLong(), color)
+            val seed1 = random.nextLong()
+            textureSet?.applyTexture(seed1, color)
 
             // +Z "front" face
             vertex(-1f, -1f, 1f, 0f, 0f)

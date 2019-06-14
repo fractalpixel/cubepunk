@@ -16,11 +16,9 @@ fun main() {
 /**
  *
  */
-class CubePunk: DemoContext(false) {
+class CubePunk: DemoContext(true) {
 
     val balls = ArrayList<PhysicalBall>()
-
-    val world = DefaultWorld()
 
     override fun init() {
         /*
@@ -49,7 +47,6 @@ class CubePunk: DemoContext(false) {
         val dirtyBoxTexture = TextureSet(this, "dirty_cube", 2)
 
         // Setup world
-        world.init()
         world.registerEntityFactory(Symbol["StructuralCube"], StructuralCubeFactory(dirtyBoxTexture))
         val drawingRef = world.getComponentRef(Renderer::class)
         world.addEntityProcessor(listOf(drawingRef), { entity, time ->

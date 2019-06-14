@@ -29,7 +29,7 @@ class TextureSet(val context: DemoContext,
 
     fun getTexture(seed: Long): PImage {
         val selectionSeed = randomHash.hash(textureSetSeed, seed)
-        val textureNum = randomHash.hashInt(selectionSeed, 1, textureCount)
+        val textureNum = randomHash.hashInt(selectionSeed, 0, textureCount)
         return images[textureNum]
     }
 
