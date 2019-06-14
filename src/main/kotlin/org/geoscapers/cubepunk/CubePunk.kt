@@ -6,6 +6,7 @@ import org.geoscapers.cubepunk.components.Renderer
 import org.geoscapers.cubepunk.components.StructuralCubeFactory
 import org.mistutils.symbol.Symbol
 import processing.core.PApplet
+import processing.core.PConstants
 
 fun main() {
     // Start with processing
@@ -41,9 +42,15 @@ class CubePunk: DemoContext(false) {
         OdeFactoryImpl.createPlane(physicsSpace, 0.0, 1.0, 0.0, 0.0)
         */
 
+
+        textureMode(PConstants.NORMAL)
+
+        // Setup textures
+        val dirtyBoxTexture = TextureSet(this, "dirty_cube", 2)
+
         // Setup world
         world.init()
-        world.registerEntityFactory(Symbol["StructuralCube"], StructuralCubeFactory())
+        world.registerEntityFactory(Symbol["StructuralCube"], StructuralCubeFactory(dirtyBoxTexture))
         val drawingRef = world.getComponentRef(Renderer::class)
         world.addEntityProcessor(listOf(drawingRef), { entity, time ->
             // Draw each drawable object every frame
@@ -58,6 +65,9 @@ class CubePunk: DemoContext(false) {
     }
 
     override fun update() {
+        lightFalloff(0.5f, 0.0f, 0.0001f)
+        pointLight(0f, 0f, 100f, -30f, 20f, 20f)
+
         // Update world
         world.step()
 
